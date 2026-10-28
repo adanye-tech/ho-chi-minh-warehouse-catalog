@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ho Chi Minh Warehouse Tile Catalog</title>
+  <meta name="description" content="Real inbound tile product catalog for the Ho Chi Minh warehouse.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="wordmark" href="./">Ho Chi Minh Warehouse<span>Tile Catalog</span></a>
+      <div class="header-note">Real inbound product records</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">WAREHOUSE PRODUCT DIRECTORY</p>
+        <h1>Ho Chi Minh Warehouse<br><em>Tile Catalog</em></h1>
+        <p class="intro-copy">A focused catalog of tile models recorded in the Ho Chi Minh warehouse inbound records.</p>
+      </div>
+      <div class="summary-card">
+        <span class="summary-number" id="totalCount">65</span>
+        <span class="summary-label">real inbound<br>product models</span>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="Catalog filters">
+      <label class="search-box">
+        <span class="sr-only">Search products</span>
+        <input id="searchInput" type="search" placeholder="Search model number..." autocomplete="off">
+        <span class="search-icon">⌕</span>
+      </label>
+      <div class="filter-row">
+        <div class="filter-group" id="sizeFilters">
+          <button class="filter-btn active" data-size="all">All sizes</button>
+          <button class="filter-btn" data-size="150x900">150×900</button>
+          <button class="filter-btn" data-size="200x1000">200×1000</button>
+          <button class="filter-btn" data-size="200x1200">200×1200</button>
+          <button class="filter-btn" data-size="600x1200">600×1200</button>
+        </div>
+        <label class="select-wrap">
+          <span class="sr-only">Image status</span>
+          <select id="statusFilter">
+            <option value="all">All image status</option>
+            <option value="ready">Image available</option>
+            <option value="missing">Image pending</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <div class="result-line"><span id="resultCount">65 products</span><span id="resultNote">Showing all inbound models</span></div>
+    <section class="product-grid" id="productGrid" aria-live="polite"></section>
+    <div class="empty-state" id="emptyState" hidden>No matching products found.</div>
+  </main>
+
+  <footer class="site-footer">
+    <span>Ho Chi Minh Warehouse Tile Catalog</span>
+    <span>Source: real warehouse inbound records · Test products excluded</span>
+  </footer>
+
+  <dialog class="product-dialog" id="productDialog">
+    <button class="dialog-close" id="dialogClose" aria-label="Close">×</button>
+    <div id="dialogContent"></div>
+  </dialog>
+
+  <dialog class="zoom-dialog" id="zoomDialog">
+    <div class="zoom-toolbar">
+      <span id="zoomTitle">Product image · Drag to view · Scroll to zoom</span>
+      <div>
+        <button id="zoomOut" type="button" aria-label="Zoom out">−</button>
+        <button id="zoomReset" type="button">100%</button>
+        <button id="zoomIn" type="button" aria-label="Zoom in">+</button>
+        <button id="zoomClose" type="button" aria-label="Close">×</button>
+      </div>
+    </div>
+    <div class="zoom-stage" id="zoomStage"><img id="zoomImage" alt=""></div>
+  </dialog>
+
+  <script src="products.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
