@@ -65,9 +65,13 @@ h1 em { color: var(--accent); font-style: italic; }
 .zoom-dialog { width: min(94vw, 1500px); height: min(94vh, 1000px); padding: 0; border: 0; background: #1e1b18; color: #fff; overflow: hidden; }
 .zoom-dialog::backdrop { background: rgba(20, 17, 14, .86); }
 .zoom-toolbar { height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 18px; background: #29241f; color: #f6f2ec; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.zoom-toolbar > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.zoom-toolbar > div { display: flex; flex: 0 0 auto; align-items: center; }
 .zoom-toolbar button { min-width: 34px; height: 32px; margin-left: 5px; border: 1px solid #655a50; background: transparent; color: #fff; cursor: pointer; font-size: 18px; }
 .zoom-toolbar button:hover { background: #8b5b3e; border-color: #8b5b3e; }
 .zoom-toolbar #zoomReset { min-width: 56px; font-size: 11px; }
+.zoom-toolbar .zoom-close { min-width: 82px; font-size: 16px; }
+.zoom-toolbar .zoom-close span { font-size: 11px; letter-spacing: .04em; vertical-align: 2px; }
 .zoom-stage { height: calc(100% - 58px); display: grid; place-items: center; overflow: hidden; padding: 28px; cursor: grab; background: #171513; touch-action: none; }
 .zoom-stage:active { cursor: grabbing; }
 .zoom-stage img { display: block; max-width: none; max-height: none; width: auto; height: auto; transform-origin: center center; user-select: none; pointer-events: none; }
@@ -78,5 +82,5 @@ h1 em { color: var(--accent); font-style: italic; }
 .dialog-spec strong { display: block; color: var(--ink); font-size: 15px; margin-top: 4px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (max-width: 1020px) { .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 720px) { .header-inner, main { padding-left: 18px; padding-right: 18px; } .header-note { display: none; } main { padding-top: 42px; } .intro { display: block; margin-bottom: 40px; } .summary-card { margin-top: 28px; width: fit-content; } .filter-row { display: block; } .select-wrap { display: block; margin-top: 12px; } .select-wrap select { width: 100%; } .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .product-info { padding: 13px; } .product-code { font-size: 18px; } .site-footer { display: block; padding: 20px 18px; } .site-footer span { display: block; margin-bottom: 7px; } .dialog-layout { display: block; } .dialog-info { padding: 25px 24px 30px; } .dialog-info h2 { font-size: 34px; } }
+@media (max-width: 720px) { .header-inner, main { padding-left: 18px; padding-right: 18px; } .header-note { display: none; } main { padding-top: 42px; } .intro { display: block; margin-bottom: 40px; } .summary-card { margin-top: 28px; width: fit-content; } .filter-row { display: block; } .select-wrap { display: block; margin-top: 12px; } .select-wrap select { width: 100%; } .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .product-info { padding: 13px; } .product-code { font-size: 18px; } .site-footer { display: block; padding: 20px 18px; } .site-footer span { display: block; margin-bottom: 7px; } .dialog-layout { display: block; } .dialog-info { padding: 25px 24px 30px; } .dialog-info h2 { font-size: 34px; } .zoom-dialog { width: calc(100% - 16px); height: calc(100% - 16px); } .zoom-toolbar { gap: 8px; padding: 0 10px; } .zoom-toolbar .zoom-close { min-width: 42px; padding: 0 7px; } .zoom-toolbar .zoom-close span { display: none; } .zoom-toolbar #zoomReset { min-width: 48px; } }
 @media (max-width: 400px) { .product-grid { grid-template-columns: 1fr; } }
