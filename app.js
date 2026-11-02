@@ -35,7 +35,7 @@
       pieces: 'Số viên / thùng', kg: 'KG / thùng', thickness: 'Độ dày', ready: 'Đã có hình ảnh', pending: 'Đang bổ sung hình ảnh',
       products: 'sản phẩm', showingAll: 'Đang hiển thị tất cả mẫu nhập kho', filtered: 'Đã lọc từ các mẫu nhập kho thực tế',
       warehouse: 'KHO HỒ CHÍ MINH', image: 'Hình ảnh sản phẩm', drag: 'Kéo để xem · Cuộn để phóng to', available: 'Đã có',
-      pendingShort: 'Đang bổ sung', close: 'Đóng', zoomOut: 'Thu nhỏ', zoomIn: 'Phóng to'
+      pendingShort: 'Đang bổ sung', close: 'Đóng', zoomOut: 'Thu nhỏ', zoomIn: 'Phóng to', galleryTitle: 'Hình ảnh chi tiết', mainImage: 'Ảnh chính', multiImage: 'Bố cục sản phẩm', effectImage: 'Ảnh hiệu ứng'
     },
     en: {
       brand: 'Ho Chi Minh Warehouse<span>Tile Catalog</span>', headerNote: 'Real inbound product records',
@@ -47,8 +47,8 @@
       empty: 'No matching products found.', source: 'Source: real warehouse inbound records · Test products excluded',
       pieces: 'Pieces / box', kg: 'KG / box', thickness: 'Thickness', ready: 'Image ready', pending: 'Pending image',
       products: 'products', showingAll: 'Showing all inbound models', filtered: 'Filtered from real inbound models',
-      warehouse: 'HO CHI MINH WAREHOUSE', image: 'Product image', drag: 'Drag to view · Scroll to zoom', available: 'Available',
-      pendingShort: 'Pending', close: 'Close', zoomOut: 'Zoom out', zoomIn: 'Zoom in'
+      warehouse: 'HO CHI MINH WAREHOUSE', image: 'Product image', drag: 'Drag to view · Scroll to zoom', available: 'Available', statusLabel: 'Image status',
+      pendingShort: 'Pending', close: 'Close', zoomOut: 'Zoom out', zoomIn: 'Zoom in', galleryTitle: 'Detail images', mainImage: 'Main image', multiImage: 'Product layouts', effectImage: 'Effect images'
     }
   };
 
@@ -74,11 +74,13 @@
   const display = (value, suffix = '') => value === null || value === '' || Number.isNaN(value) ? '—' : `${value}${suffix}`;
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const sizeLabel = (size) => String(size || '').replace('x', '×');
+  const galleryFiles = ['main.jpg', 'multi-01.jpg', 'multi-02.jpg', 'multi-03.jpg', 'multi-04.jpg', 'effect-01.jpg', 'effect-02.jpg', 'effect-03.jpg'];
+  const productGallery = (product) => product.assetSeries ? galleryFiles.map(file => ({ file, url: `assets/order-system-products/${product.assetSeries}/${file}`, thumb: `assets/card-thumbs/order-system-products/${product.assetSeries}/${file}` })) : [];
 
   function card(product, index) {
     const hasImage = Boolean(product.image);
     const image = hasImage
-      ? `<img src="${esc(product.image)}" alt="${esc(product.code)}" loading="lazy">`
+      ? `<img src="${esc(product.thumbnail || product.image)}" data-full-src="${esc(product.image)}" alt="${esc(product.code)}" loading="lazy">`
       : `<div class="pending-box">${t('pending')}</div>`;
     return `<article class="product-card" data-index="${index}" tabindex="0">
       <div class="image-frame${hasImage ? '' : ' pending'}">${image}<span class="status-badge">${hasImage ? t('ready') : t('pending')}</span></div>
@@ -120,12 +122,15 @@
 
   function openProduct(product) {
     const image = product.image ? `<img src="${esc(product.image)}" alt="${esc(product.code)}">` : `<div class="pending-box">${t('pending')}</div>`;
-    dialogContent.innerHTML = `<div class="dialog-layout"><div class="image-frame${product.image ? '' : ' pending'}">${image}</div><div class="dialog-info"><p class="eyebrow">${t('warehouse')}</p><h2>${esc(product.code)}</h2><div class="product-size">${esc(sizeLabel(product.size))}</div><div class="dialog-spec"><div>${t('pieces')}<strong>${display(product.pieces)}</strong></div><div>${t('kg')}<strong>${display(product.kg)}</strong></div><div>${t('thickness')}<strong>${display(product.thickness, ' mm')}</strong></div><div>${t('statusLabel')}<strong>${product.image ? t('available') : t('pendingShort')}</strong></div></div></div></div>`;
+    const gallery = productGallery(product);
+    const galleryMarkup = gallery.length ? `<section class="product-gallery"><h3>${t('galleryTitle')}</h3><div class="gallery-grid">${gallery.map((item, index) => `<button class="gallery-thumb" type="button" data-gallery-src="${esc(item.url)}" data-gallery-label="${esc(item.file)}"><img src="${esc(item.thumb)}" alt="${esc(product.code)} ${esc(item.file)}" loading="lazy"><span>${index === 0 ? t('mainImage') : item.file.startsWith('multi') ? t('multiImage') : t('effectImage')}</span></button>`).join('')}</div></section>` : '';
+    dialogContent.innerHTML = `<div class="dialog-layout"><div class="image-frame${product.image ? '' : ' pending'}">${image}</div><div class="dialog-info"><p class="eyebrow">${t('warehouse')}</p><h2>${esc(product.code)}</h2><div class="product-size">${esc(sizeLabel(product.size))}</div><div class="dialog-spec"><div>${t('pieces')}<strong>${display(product.pieces)}</strong></div><div>${t('kg')}<strong>${display(product.kg)}</strong></div><div>${t('thickness')}<strong>${display(product.thickness, ' mm')}</strong></div><div>${t('statusLabel')}<strong>${product.image ? t('available') : t('pendingShort')}</strong></div></div></div></div>${galleryMarkup}`;
     dialog.showModal();
     const detailImage = dialogContent.querySelector('.image-frame img');
     if (detailImage) {
       detailImage.addEventListener('click', () => openZoom(product), { once: true });
     }
+    dialogContent.querySelectorAll('.gallery-thumb').forEach(button => button.addEventListener('click', () => openZoom(product, button.dataset.gallerySrc)));
   }
 
   function renderZoom() {
@@ -133,13 +138,13 @@
     zoomTitle.textContent = `${zoomImage.alt} · ${Math.round(zoomScale * 100)}% · ${t('drag')}`;
   }
 
-  function openZoom(product) {
-    if (!product.image) return;
+  function openZoom(product, imageUrl = product.image) {
+    if (!imageUrl) return;
     zoomScale = 1;
     panX = 0;
     panY = 0;
-    zoomImage.src = product.image;
-    zoomImage.alt = product.code;
+    zoomImage.src = imageUrl;
+    zoomImage.alt = `${product.code} ${imageUrl.split('/').pop()}`;
     renderZoom();
     zoomDialog.showModal();
   }
