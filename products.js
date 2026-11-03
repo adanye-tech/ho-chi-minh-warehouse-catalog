@@ -657,8 +657,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H01",
-    "image": "assets/order-system-products/H01/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H01/main.jpg",
+    "image": "hcm-H01-main.jpg",
+    "thumbnail": "hcm-thumb-H01-main.jpg",
     "missing": false
   },
   {
@@ -669,8 +669,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H02",
-    "image": "assets/order-system-products/H02/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H02/main.jpg",
+    "image": "hcm-H02-main.jpg",
+    "thumbnail": "hcm-thumb-H02-main.jpg",
     "missing": false
   },
   {
@@ -681,8 +681,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H03",
-    "image": "assets/order-system-products/H03/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H03/main.jpg",
+    "image": "hcm-H03-main.jpg",
+    "thumbnail": "hcm-thumb-H03-main.jpg",
     "missing": false
   },
   {
@@ -693,8 +693,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H05",
-    "image": "assets/order-system-products/H05/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H05/main.jpg",
+    "image": "hcm-H05-main.jpg",
+    "thumbnail": "hcm-thumb-H05-main.jpg",
     "missing": false
   },
   {
@@ -705,8 +705,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H06",
-    "image": "assets/order-system-products/H06/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H06/main.jpg",
+    "image": "hcm-H06-main.jpg",
+    "thumbnail": "hcm-thumb-H06-main.jpg",
     "missing": false
   },
   {
@@ -717,8 +717,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H07",
-    "image": "assets/order-system-products/H07/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H07/main.jpg",
+    "image": "hcm-H07-main.jpg",
+    "thumbnail": "hcm-thumb-H07-main.jpg",
     "missing": false
   },
   {
@@ -729,8 +729,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H08",
-    "image": "assets/order-system-products/H08/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H08/main.jpg",
+    "image": "hcm-H08-main.jpg",
+    "thumbnail": "hcm-thumb-H08-main.jpg",
     "missing": false
   },
   {
@@ -741,8 +741,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H02",
-    "image": "assets/order-system-products/H02/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H02/main.jpg",
+    "image": "hcm-H02-main.jpg",
+    "thumbnail": "hcm-thumb-H02-main.jpg",
     "missing": false
   },
   {
@@ -753,8 +753,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H03",
-    "image": "assets/order-system-products/H03/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H03/main.jpg",
+    "image": "hcm-H03-main.jpg",
+    "thumbnail": "hcm-thumb-H03-main.jpg",
     "missing": false
   },
   {
@@ -765,8 +765,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H05",
-    "image": "assets/order-system-products/H05/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H05/main.jpg",
+    "image": "hcm-H05-main.jpg",
+    "thumbnail": "hcm-thumb-H05-main.jpg",
     "missing": false
   },
   {
@@ -777,8 +777,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H06",
-    "image": "assets/order-system-products/H06/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H06/main.jpg",
+    "image": "hcm-H06-main.jpg",
+    "thumbnail": "hcm-thumb-H06-main.jpg",
     "missing": false
   },
   {
@@ -789,8 +789,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H07",
-    "image": "assets/order-system-products/H07/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H07/main.jpg",
+    "image": "hcm-H07-main.jpg",
+    "thumbnail": "hcm-thumb-H07-main.jpg",
     "missing": false
   },
   {
@@ -801,8 +801,8 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H08",
-    "image": "assets/order-system-products/H08/main.jpg",
-    "thumbnail": "assets/card-thumbs/order-system-products/H08/main.jpg",
+    "image": "hcm-H08-main.jpg",
+    "thumbnail": "hcm-thumb-H08-main.jpg",
     "missing": false
   }
 ];
