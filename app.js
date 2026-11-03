@@ -21,6 +21,7 @@
   let dragOriginX = 0;
   let dragOriginY = 0;
   let activeSize = 'all';
+  let activeCategory = 'all';
   let currentLang = localStorage.getItem('hcmCatalogLanguage') || 'vi';
 
   const translations = {
@@ -29,7 +30,7 @@
       eyebrow: 'DANH MỤC SẢN PHẨM TRONG KHO', title: 'Kho Hồ Chí Minh<br><em>Danh mục gạch</em>',
       intro: 'Danh mục tập trung các mẫu gạch được ghi nhận trong phiếu nhập kho Hồ Chí Minh.',
       summary: 'mẫu sản phẩm<br>nhập kho thực tế', filtersAria: 'Bộ lọc danh mục', searchLabel: 'Tìm sản phẩm',
-      searchPlaceholder: 'Tìm mã sản phẩm...', allSizes: 'Tất cả kích thước', statusLabel: 'Trạng thái hình ảnh',
+      searchPlaceholder: 'Tìm mã sản phẩm...', allSizes: 'Tất cả kích thước', directoryLabel: 'Danh mục riêng', allCatalog: 'Tất cả sản phẩm', glossy800: 'Gạch bóng 800', glossy600: 'Gạch bóng 600×1200', statusLabel: 'Trạng thái hình ảnh',
       allStatus: 'Tất cả trạng thái', readyStatus: 'Đã có hình ảnh', missingStatus: 'Đang bổ sung hình ảnh',
       empty: 'Không tìm thấy sản phẩm phù hợp.', source: 'Nguồn: phiếu nhập kho thực tế · Không bao gồm sản phẩm thử nghiệm',
       pieces: 'Số viên / thùng', kg: 'KG / thùng', thickness: 'Độ dày', ready: 'Đã có hình ảnh', pending: 'Đang bổ sung hình ảnh',
@@ -42,7 +43,7 @@
       eyebrow: 'WAREHOUSE PRODUCT DIRECTORY', title: 'Ho Chi Minh Warehouse<br><em>Tile Catalog</em>',
       intro: 'A focused catalog of tile models recorded in the Ho Chi Minh warehouse inbound records.',
       summary: 'real inbound<br>product models', filtersAria: 'Catalog filters', searchLabel: 'Search products',
-      searchPlaceholder: 'Search model number...', allSizes: 'All sizes', statusLabel: 'Image status',
+      searchPlaceholder: 'Search model number...', allSizes: 'All sizes', directoryLabel: 'Product directories', allCatalog: 'All products', glossy800: 'Glossy 800', glossy600: 'Glossy 600×1200', statusLabel: 'Image status',
       allStatus: 'All image status', readyStatus: 'Image available', missingStatus: 'Image pending',
       empty: 'No matching products found.', source: 'Source: real warehouse inbound records · Test products excluded',
       pieces: 'Pieces / box', kg: 'KG / box', thickness: 'Thickness', ready: 'Image ready', pending: 'Pending image',
@@ -100,8 +101,9 @@
       const text = `${product.code} ${product.name} ${product.size}`.toLowerCase();
       const matchesQuery = !query || text.includes(query);
       const matchesSize = activeSize === 'all' || product.size === activeSize;
+      const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
       const matchesStatus = status.value === 'all' || (status.value === 'ready' ? Boolean(product.image) : !product.image);
-      return matchesQuery && matchesSize && matchesStatus;
+      return matchesQuery && matchesSize && matchesCategory && matchesStatus;
     });
   }
 
@@ -153,6 +155,12 @@
     document.querySelectorAll('[data-size]').forEach(item => item.classList.remove('active'));
     button.classList.add('active');
     activeSize = button.dataset.size;
+    render();
+  }));
+  document.querySelectorAll('[data-category]').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('[data-category]').forEach(item => item.classList.remove('active'));
+    button.classList.add('active');
+    activeCategory = button.dataset.category;
     render();
   }));
   search.addEventListener('input', render);

@@ -657,6 +657,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H01",
+    "category": "glossy-600",
     "image": "hcm-H01-main.jpg",
     "thumbnail": "hcm-thumb-H01-main.jpg",
     "missing": false
@@ -669,6 +670,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H02",
+    "category": "glossy-600",
     "image": "hcm-H02-main.jpg",
     "thumbnail": "hcm-thumb-H02-main.jpg",
     "missing": false
@@ -681,6 +683,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H03",
+    "category": "glossy-600",
     "image": "hcm-H03-main.jpg",
     "thumbnail": "hcm-thumb-H03-main.jpg",
     "missing": false
@@ -693,6 +696,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H05",
+    "category": "glossy-600",
     "image": "hcm-H05-main.jpg",
     "thumbnail": "hcm-thumb-H05-main.jpg",
     "missing": false
@@ -705,6 +709,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H06",
+    "category": "glossy-600",
     "image": "hcm-H06-main.jpg",
     "thumbnail": "hcm-thumb-H06-main.jpg",
     "missing": false
@@ -717,6 +722,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H07",
+    "category": "glossy-600",
     "image": "hcm-H07-main.jpg",
     "thumbnail": "hcm-thumb-H07-main.jpg",
     "missing": false
@@ -729,6 +735,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 10,
     "assetSeries": "H08",
+    "category": "glossy-600",
     "image": "hcm-H08-main.jpg",
     "thumbnail": "hcm-thumb-H08-main.jpg",
     "missing": false
@@ -741,6 +748,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H02",
+    "category": "glossy-800",
     "image": "hcm-H02-main.jpg",
     "thumbnail": "hcm-thumb-H02-main.jpg",
     "missing": false
@@ -753,6 +761,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H03",
+    "category": "glossy-800",
     "image": "hcm-H03-main.jpg",
     "thumbnail": "hcm-thumb-H03-main.jpg",
     "missing": false
@@ -765,6 +774,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H05",
+    "category": "glossy-800",
     "image": "hcm-H05-main.jpg",
     "thumbnail": "hcm-thumb-H05-main.jpg",
     "missing": false
@@ -777,6 +787,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H06",
+    "category": "glossy-800",
     "image": "hcm-H06-main.jpg",
     "thumbnail": "hcm-thumb-H06-main.jpg",
     "missing": false
@@ -789,6 +800,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H07",
+    "category": "glossy-800",
     "image": "hcm-H07-main.jpg",
     "thumbnail": "hcm-thumb-H07-main.jpg",
     "missing": false
@@ -801,6 +813,7 @@ window.PRODUCTS = [
     "kg": 42,
     "thickness": 9.8,
     "assetSeries": "H08",
+    "category": "glossy-800",
     "image": "hcm-H08-main.jpg",
     "thumbnail": "hcm-thumb-H08-main.jpg",
     "missing": false
