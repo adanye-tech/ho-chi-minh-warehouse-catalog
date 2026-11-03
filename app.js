@@ -75,7 +75,7 @@
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const sizeLabel = (size) => String(size || '').replace('x', '×');
   const galleryFiles = ['main.jpg', 'multi-01.jpg', 'multi-02.jpg', 'multi-03.jpg', 'multi-04.jpg', 'effect-01.jpg', 'effect-02.jpg', 'effect-03.jpg'];
-  const productGallery = (product) => product.assetSeries ? galleryFiles.map(file => ({ file, url: `assets/order-system-products/${product.assetSeries}/${file}`, thumb: `assets/card-thumbs/order-system-products/${product.assetSeries}/${file}` })) : [];
+  const productGallery = (product) => product.assetSeries ? galleryFiles.map(file => ({ file, url: `hcm-${product.assetSeries}-${file}`, thumb: `hcm-thumb-${product.assetSeries}-${file}` })) : [];
 
   function card(product, index) {
     const hasImage = Boolean(product.image);
