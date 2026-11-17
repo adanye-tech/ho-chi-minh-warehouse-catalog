@@ -80,6 +80,16 @@ window.PRODUCTS = [
     "missing": false
   },
   {
+    "code": "159011",
+    "name": "159011 150x900",
+    "size": "150x900",
+    "pieces": 10,
+    "kg": 27,
+    "thickness": 9.5,
+    "image": "https://adanye-tech.github.io/tile-product-catalog/assets/wood-new/wood-150x900-013.jpg",
+    "missing": false
+  },
+  {
     "code": "1511",
     "name": "1511 150x900",
     "size": "150x900",
