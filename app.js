@@ -25,6 +25,9 @@
   let activeGallery = [];
   let activeGalleryIndex = 0;
   let activeProductCode = '';
+  const activePointers = new Map();
+  let pinchStartDistance = 0;
+  let pinchStartScale = 1;
   let activeSize = 'all';
   let activeCategory = 'all';
   let currentLang = localStorage.getItem('hcmCatalogLanguage') || 'vi';
@@ -35,7 +38,7 @@
       eyebrow: 'DANH MỤC SẢN PHẨM TRONG KHO', title: 'Kho Hồ Chí Minh<br><em>Danh mục gạch</em>',
       intro: 'Danh mục tập trung các mẫu gạch được ghi nhận trong phiếu nhập kho Hồ Chí Minh.',
       summary: 'mẫu sản phẩm<br>nhập kho thực tế', filtersAria: 'Bộ lọc danh mục', searchLabel: 'Tìm sản phẩm',
-      searchPlaceholder: 'Tìm mã sản phẩm...', allSizes: 'Tất cả kích thước', directoryLabel: 'Danh mục riêng', allCatalog: 'Tất cả sản phẩm', glossy800: 'Gạch bóng 800', glossy600: 'Gạch bóng 600×1200', statusLabel: 'Trạng thái hình ảnh',
+      searchPlaceholder: 'Tìm mã sản phẩm...', allSizes: 'Tất cả kích thước', directoryLabel: 'Danh mục sản phẩm', allCatalog: 'Tất cả sản phẩm', glossySeries: 'Dòng gạch bóng', woodSeries: 'Dòng vân gỗ', statusLabel: 'Trạng thái hình ảnh',
       allStatus: 'Tất cả trạng thái', readyStatus: 'Đã có hình ảnh', missingStatus: 'Đang bổ sung hình ảnh',
       empty: 'Không tìm thấy sản phẩm phù hợp.', source: 'Nguồn: phiếu nhập kho thực tế · Không bao gồm sản phẩm thử nghiệm',
       pieces: 'Số viên / thùng', kg: 'KG / thùng', thickness: 'Độ dày', ready: 'Đã có hình ảnh', pending: 'Đang bổ sung hình ảnh',
@@ -48,7 +51,7 @@
       eyebrow: 'WAREHOUSE PRODUCT DIRECTORY', title: 'Ho Chi Minh Warehouse<br><em>Tile Catalog</em>',
       intro: 'A focused catalog of tile models recorded in the Ho Chi Minh warehouse inbound records.',
       summary: 'real inbound<br>product models', filtersAria: 'Catalog filters', searchLabel: 'Search products',
-      searchPlaceholder: 'Search model number...', allSizes: 'All sizes', directoryLabel: 'Product directories', allCatalog: 'All products', glossy800: 'Glossy 800', glossy600: 'Glossy 600×1200', statusLabel: 'Image status',
+      searchPlaceholder: 'Search model number...', allSizes: 'All sizes', directoryLabel: 'Product series', allCatalog: 'All products', glossySeries: 'Glossy series', woodSeries: 'Wood grain series', statusLabel: 'Image status',
       allStatus: 'All image status', readyStatus: 'Image available', missingStatus: 'Image pending',
       empty: 'No matching products found.', source: 'Source: real warehouse inbound records · Test products excluded',
       pieces: 'Pieces / box', kg: 'KG / box', thickness: 'Thickness', ready: 'Image ready', pending: 'Pending image',
@@ -108,7 +111,8 @@
       const text = `${product.code} ${product.name} ${product.size}`.toLowerCase();
       const matchesQuery = !query || text.includes(query);
       const matchesSize = activeSize === 'all' || product.size === activeSize;
-      const matchesCategory = activeCategory === 'all' || product.category === activeCategory;
+      const isGlossy = product.category === 'glossy-800' || product.category === 'glossy-600';
+      const matchesCategory = activeCategory === 'all' || (activeCategory === 'glossy' ? isGlossy : !isGlossy);
       const matchesStatus = status.value === 'all' || (status.value === 'ready' ? Boolean(product.image) : !product.image);
       return matchesQuery && matchesSize && matchesCategory && matchesStatus;
     });
@@ -189,6 +193,8 @@
     document.querySelectorAll('[data-category]').forEach(item => item.classList.remove('active'));
     button.classList.add('active');
     activeCategory = button.dataset.category;
+    activeSize = 'all';
+    document.querySelectorAll('[data-size]').forEach(item => item.classList.toggle('active', item.dataset.size === 'all'));
     render();
   }));
   search.addEventListener('input', render);
@@ -208,22 +214,60 @@
     if (event.key === 'ArrowLeft') browseZoom(-1);
     if (event.key === 'ArrowRight') browseZoom(1);
   });
+  const pointerDistance = () => {
+    const points = [...activePointers.values()];
+    if (points.length < 2) return 0;
+    return Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
+  };
   zoomStage.addEventListener('pointerdown', event => {
+    activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    zoomStage.setPointerCapture(event.pointerId);
+    if (activePointers.size >= 2) {
+      dragging = false;
+      pinchStartDistance = pointerDistance();
+      pinchStartScale = zoomScale;
+      return;
+    }
     dragging = true;
     dragStartX = event.clientX;
     dragStartY = event.clientY;
     dragOriginX = panX;
     dragOriginY = panY;
-    zoomStage.setPointerCapture(event.pointerId);
   });
   zoomStage.addEventListener('pointermove', event => {
+    if (activePointers.has(event.pointerId)) activePointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+    if (activePointers.size >= 2) {
+      const distance = pointerDistance();
+      if (pinchStartDistance && distance) {
+        zoomScale = Math.max(.5, Math.min(4, Number((pinchStartScale * distance / pinchStartDistance).toFixed(2))));
+        renderZoom();
+      }
+      return;
+    }
     if (!dragging) return;
     panX = dragOriginX + event.clientX - dragStartX;
     panY = dragOriginY + event.clientY - dragStartY;
     renderZoom();
   });
-  zoomStage.addEventListener('pointerup', event => { dragging = false; zoomStage.releasePointerCapture(event.pointerId); });
-  zoomStage.addEventListener('pointercancel', () => { dragging = false; });
+  const endPointer = event => {
+    activePointers.delete(event.pointerId);
+    dragging = false;
+    if (zoomStage.hasPointerCapture(event.pointerId)) zoomStage.releasePointerCapture(event.pointerId);
+    if (activePointers.size === 0) {
+      pinchStartDistance = 0;
+      return;
+    }
+    if (activePointers.size === 1) {
+      const point = [...activePointers.values()][0];
+      dragStartX = point.x;
+      dragStartY = point.y;
+      dragOriginX = panX;
+      dragOriginY = panY;
+      dragging = true;
+    }
+  };
+  zoomStage.addEventListener('pointerup', endPointer);
+  zoomStage.addEventListener('pointercancel', endPointer);
   zoomStage.addEventListener('wheel', event => {
     event.preventDefault();
     const next = Math.max(.5, Math.min(4, zoomScale + (event.deltaY < 0 ? .15 : -.15)));
