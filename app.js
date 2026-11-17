@@ -12,6 +12,8 @@
   const zoomImage = document.querySelector('#zoomImage');
   const zoomTitle = document.querySelector('#zoomTitle');
   const zoomStage = document.querySelector('#zoomStage');
+  const zoomPrev = document.querySelector('#zoomPrev');
+  const zoomNext = document.querySelector('#zoomNext');
   let zoomScale = 1;
   let panX = 0;
   let panY = 0;
@@ -20,6 +22,9 @@
   let dragStartY = 0;
   let dragOriginX = 0;
   let dragOriginY = 0;
+  let activeGallery = [];
+  let activeGalleryIndex = 0;
+  let activeProductCode = '';
   let activeSize = 'all';
   let activeCategory = 'all';
   let currentLang = localStorage.getItem('hcmCatalogLanguage') || 'vi';
@@ -35,7 +40,7 @@
       empty: 'Không tìm thấy sản phẩm phù hợp.', source: 'Nguồn: phiếu nhập kho thực tế · Không bao gồm sản phẩm thử nghiệm',
       pieces: 'Số viên / thùng', kg: 'KG / thùng', thickness: 'Độ dày', ready: 'Đã có hình ảnh', pending: 'Đang bổ sung hình ảnh',
       products: 'sản phẩm', showingAll: 'Đang hiển thị tất cả mẫu nhập kho', filtered: 'Đã lọc từ các mẫu nhập kho thực tế',
-      warehouse: 'KHO HỒ CHÍ MINH', image: 'Hình ảnh sản phẩm', drag: 'Kéo để xem · Cuộn để phóng to', available: 'Đã có',
+      warehouse: 'KHO HỒ CHÍ MINH', image: 'Hình ảnh sản phẩm', drag: 'Kéo để xem · Cuộn để phóng to', available: 'Đã có', previous: 'Ảnh trước', next: 'Ảnh sau',
       pendingShort: 'Đang bổ sung', close: 'Đóng', zoomOut: 'Thu nhỏ', zoomIn: 'Phóng to', galleryTitle: 'Hình ảnh chi tiết', mainImage: 'Ảnh chính', multiImage: 'Bố cục sản phẩm', effectImage: 'Ảnh hiệu ứng'
     },
     en: {
@@ -48,7 +53,7 @@
       empty: 'No matching products found.', source: 'Source: real warehouse inbound records · Test products excluded',
       pieces: 'Pieces / box', kg: 'KG / box', thickness: 'Thickness', ready: 'Image ready', pending: 'Pending image',
       products: 'products', showingAll: 'Showing all inbound models', filtered: 'Filtered from real inbound models',
-      warehouse: 'HO CHI MINH WAREHOUSE', image: 'Product image', drag: 'Drag to view · Scroll to zoom', available: 'Available', statusLabel: 'Image status',
+      warehouse: 'HO CHI MINH WAREHOUSE', image: 'Product image', drag: 'Drag to view · Scroll to zoom', available: 'Available', previous: 'Previous image', next: 'Next image', statusLabel: 'Image status',
       pendingShort: 'Pending', close: 'Close', zoomOut: 'Zoom out', zoomIn: 'Zoom in', galleryTitle: 'Detail images', mainImage: 'Main image', multiImage: 'Product layouts', effectImage: 'Effect images'
     }
   };
@@ -69,6 +74,8 @@
     }
     document.querySelector('#zoomOut')?.setAttribute('aria-label', t('zoomOut'));
     document.querySelector('#zoomIn')?.setAttribute('aria-label', t('zoomIn'));
+    zoomPrev?.setAttribute('aria-label', t('previous'));
+    zoomNext?.setAttribute('aria-label', t('next'));
     render();
   }
 
@@ -125,30 +132,51 @@
   function openProduct(product) {
     const image = product.image ? `<img src="${esc(product.image)}" alt="${esc(product.code)}">` : `<div class="pending-box">${t('pending')}</div>`;
     const gallery = productGallery(product);
-    const galleryMarkup = gallery.length ? `<section class="product-gallery"><h3>${t('galleryTitle')}</h3><div class="gallery-grid">${gallery.map((item, index) => `<button class="gallery-thumb" type="button" data-gallery-src="${esc(item.url)}" data-gallery-label="${esc(item.file)}"><img src="${esc(item.thumb)}" alt="${esc(product.code)} ${esc(item.file)}" loading="lazy"><span>${index === 0 ? t('mainImage') : item.file.startsWith('multi') ? t('multiImage') : t('effectImage')}</span></button>`).join('')}</div></section>` : '';
+    const galleryMarkup = gallery.length ? `<section class="product-gallery"><h3>${t('galleryTitle')}</h3><div class="gallery-grid">${gallery.map((item, index) => `<button class="gallery-thumb" type="button" data-gallery-index="${index}"><img src="${esc(item.thumb)}" alt="${esc(product.code)} ${esc(item.file)}" loading="lazy"><span>${index === 0 ? t('mainImage') : item.file.startsWith('multi') ? t('multiImage') : t('effectImage')}</span></button>`).join('')}</div></section>` : '';
     dialogContent.innerHTML = `<div class="dialog-layout"><div class="image-frame${product.image ? '' : ' pending'}">${image}</div><div class="dialog-info"><p class="eyebrow">${t('warehouse')}</p><h2>${esc(product.code)}</h2><div class="product-size">${esc(sizeLabel(product.size))}</div><div class="dialog-spec"><div>${t('pieces')}<strong>${display(product.pieces)}</strong></div><div>${t('kg')}<strong>${display(product.kg)}</strong></div><div>${t('thickness')}<strong>${display(product.thickness, ' mm')}</strong></div><div>${t('statusLabel')}<strong>${product.image ? t('available') : t('pendingShort')}</strong></div></div></div></div>${galleryMarkup}`;
     dialog.showModal();
     const detailImage = dialogContent.querySelector('.image-frame img');
     if (detailImage) {
-      detailImage.addEventListener('click', () => openZoom(product), { once: true });
+      detailImage.addEventListener('click', () => openZoom(product, gallery, 0), { once: true });
     }
-    dialogContent.querySelectorAll('.gallery-thumb').forEach(button => button.addEventListener('click', () => openZoom(product, button.dataset.gallerySrc)));
+    dialogContent.querySelectorAll('.gallery-thumb').forEach(button => button.addEventListener('click', () => openZoom(product, gallery, Number(button.dataset.galleryIndex))));
   }
 
   function renderZoom() {
     zoomImage.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
-    zoomTitle.textContent = `${zoomImage.alt} · ${Math.round(zoomScale * 100)}% · ${t('drag')}`;
+    const position = activeGallery.length ? ` · ${activeGalleryIndex + 1}/${activeGallery.length}` : '';
+    zoomTitle.textContent = `${zoomImage.alt}${position} · ${Math.round(zoomScale * 100)}% · ${t('drag')}`;
+    if (zoomPrev) zoomPrev.disabled = activeGalleryIndex <= 0;
+    if (zoomNext) zoomNext.disabled = activeGalleryIndex >= activeGallery.length - 1;
   }
 
-  function openZoom(product, imageUrl = product.image) {
-    if (!imageUrl) return;
+  function openZoom(product, gallery = productGallery(product), index = 0) {
+    if (!gallery.length && product.image) gallery = [{ file: product.image.split('/').pop(), url: product.image }];
+    if (!gallery.length) return;
+    activeGallery = gallery;
+    activeGalleryIndex = Math.max(0, Math.min(index, gallery.length - 1));
+    activeProductCode = product.code;
     zoomScale = 1;
     panX = 0;
     panY = 0;
+    const imageUrl = activeGallery[activeGalleryIndex].url;
     zoomImage.src = imageUrl;
     zoomImage.alt = `${product.code} ${imageUrl.split('/').pop()}`;
     renderZoom();
     zoomDialog.showModal();
+  }
+
+  function browseZoom(step) {
+    const nextIndex = activeGalleryIndex + step;
+    if (nextIndex < 0 || nextIndex >= activeGallery.length) return;
+    activeGalleryIndex = nextIndex;
+    zoomScale = 1;
+    panX = 0;
+    panY = 0;
+    const imageUrl = activeGallery[activeGalleryIndex].url;
+    zoomImage.src = imageUrl;
+    zoomImage.alt = `${activeProductCode} ${imageUrl.split('/').pop()}`;
+    renderZoom();
   }
 
   document.querySelectorAll('[data-size]').forEach(button => button.addEventListener('click', () => {
@@ -173,6 +201,13 @@
   document.querySelector('#zoomIn').addEventListener('click', () => { zoomScale = Math.min(4, zoomScale + .25); renderZoom(); });
   document.querySelector('#zoomOut').addEventListener('click', () => { zoomScale = Math.max(.5, zoomScale - .25); renderZoom(); });
   document.querySelector('#zoomReset').addEventListener('click', () => { zoomScale = 1; panX = 0; panY = 0; renderZoom(); });
+  zoomPrev?.addEventListener('click', () => browseZoom(-1));
+  zoomNext?.addEventListener('click', () => browseZoom(1));
+  document.addEventListener('keydown', event => {
+    if (!zoomDialog.open) return;
+    if (event.key === 'ArrowLeft') browseZoom(-1);
+    if (event.key === 'ArrowRight') browseZoom(1);
+  });
   zoomStage.addEventListener('pointerdown', event => {
     dragging = true;
     dragStartX = event.clientX;

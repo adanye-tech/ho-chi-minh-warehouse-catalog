@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ho Chi Minh Warehouse Tile Catalog</title>
   <meta name="description" content="Real inbound tile product catalog for the Ho Chi Minh warehouse.">
-  <link rel="stylesheet" href="styles.css?v=01f5187">
+  <link rel="stylesheet" href="styles.css?v=gallery-nav-20261117">
 </head>
 <body>
   <header class="site-header">
@@ -92,10 +92,14 @@
         <button id="zoomClose" class="zoom-close" type="button" aria-label="Close image viewer">× <span>Close</span></button>
       </div>
     </div>
-    <div class="zoom-stage" id="zoomStage"><img id="zoomImage" alt=""></div>
+    <div class="zoom-stage" id="zoomStage">
+      <button class="zoom-nav zoom-prev" id="zoomPrev" type="button" aria-label="Previous image">‹</button>
+      <img id="zoomImage" alt="">
+      <button class="zoom-nav zoom-next" id="zoomNext" type="button" aria-label="Next image">›</button>
+    </div>
   </dialog>
 
-  <script src="products.js?v=01f5187"></script>
-  <script src="app.js?v=01f5187"></script>
+  <script src="products.js?v=gallery-nav-20261117"></script>
+  <script src="app.js?v=gallery-nav-20261117"></script>
 </body>
 </html>
