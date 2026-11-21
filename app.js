@@ -1,5 +1,12 @@
 (() => {
   const products = Array.isArray(window.PRODUCTS) ? window.PRODUCTS : [];
+  const glossyOriginalBase = 'https://adanye-tech.github.io/tile-product-catalog/assets/order-system-products';
+  const glossyThumbnailBase = 'https://adanye-tech.github.io/tile-product-catalog/assets/card-thumbs/order-system-products';
+  products.forEach(product => {
+    if (!product.assetSeries) return;
+    product.image = `${glossyOriginalBase}/${product.assetSeries}/main.jpg`;
+    product.thumbnail = `${glossyThumbnailBase}/${product.assetSeries}/main.jpg`;
+  });
   const grid = document.querySelector('#productGrid');
   const search = document.querySelector('#searchInput');
   const status = document.querySelector('#statusFilter');
@@ -51,13 +58,23 @@
       eyebrow: 'WAREHOUSE PRODUCT DIRECTORY', title: 'Ho Chi Minh Warehouse<br><em>Tile Catalog</em>',
       intro: 'A focused catalog of tile models recorded in the Ho Chi Minh warehouse inbound records.',
       summary: 'real inbound<br>product models', filtersAria: 'Catalog filters', searchLabel: 'Search products',
-      searchPlaceholder: 'Search model number...', allSizes: 'All sizes', directoryLabel: 'Product series', allCatalog: 'All products', glossySeries: 'Glossy series', woodSeries: 'Wood grain series', statusLabel: 'Image status',
+      searchPlaceholder: 'Search model number...', allSizes: 'All sizes', directoryLabel: 'Product series', allCatalog: 'All products', glossySeries: 'Glossy series', woodSeries: 'Wood-texture series', statusLabel: 'Image status',
       allStatus: 'All image status', readyStatus: 'Image available', missingStatus: 'Image pending',
       empty: 'No matching products found.', source: 'Source: real warehouse inbound records · Test products excluded',
       pieces: 'Pieces / box', kg: 'KG / box', thickness: 'Thickness', ready: 'Image ready', pending: 'Pending image',
       products: 'products', showingAll: 'Showing all inbound models', filtered: 'Filtered from real inbound models',
       warehouse: 'HO CHI MINH WAREHOUSE', image: 'Product image', drag: 'Drag to view · Scroll to zoom', available: 'Available', previous: 'Previous image', next: 'Next image', statusLabel: 'Image status',
       pendingShort: 'Pending', close: 'Close', zoomOut: 'Zoom out', zoomIn: 'Zoom in', galleryTitle: 'Detail images', mainImage: 'Main image', multiImage: 'Product layouts', effectImage: 'Effect images'
+    },
+    zh: {
+      brand: '胡志明仓库<span>瓷砖图册</span>', headerNote: '实际入库产品记录',
+      eyebrow: '仓库产品目录', title: '胡志明仓库<br><em>瓷砖图册</em>',
+      intro: '本目录收录胡志明仓库正式入库记录中的瓷砖产品。',
+      summary: '个产品<br>正式入库记录', filtersAria: '图册筛选', searchLabel: '查找产品',
+      searchPlaceholder: '查找产品型号……', allSizes: '所有尺寸', directoryLabel: '产品系列', allCatalog: '所有产品', glossySeries: '亮面瓷砖系列', woodSeries: '木纹系列', statusLabel: '图片状态',
+      allStatus: '所有状态', readyStatus: '图片已提供', missingStatus: '待补图片', empty: '没有找到合适的产品。', source: '来源：正式仓库入库记录 · 不包括测试产品',
+      pieces: '每盒片剂数量', kg: '公斤 / 箱', thickness: '厚度', ready: '图片已提供', pending: '待补图片', products: '种产品', showingAll: '显示所有库存收据', filtered: '已按正式入库记录筛选',
+      warehouse: '胡志明仓库', image: '产品图片', drag: '拖动查看 · 滚轮或双指缩放', available: '图片已提供', previous: '上一张', next: '下一张', pendingShort: '待补图片', close: '关闭', zoomOut: '缩小', zoomIn: '放大', galleryTitle: '图片详情', mainImage: '主图', multiImage: '多版面图', effectImage: '效果图'
     }
   };
 
@@ -86,7 +103,11 @@
   const esc = (value) => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const sizeLabel = (size) => String(size || '').replace('x', '×');
   const galleryFiles = ['main.jpg', 'multi-01.jpg', 'multi-02.jpg', 'multi-03.jpg', 'multi-04.jpg', 'effect-01.jpg', 'effect-02.jpg', 'effect-03.jpg'];
-  const productGallery = (product) => product.assetSeries ? galleryFiles.map(file => ({ file, url: `hcm-${product.assetSeries}-${file}`, thumb: `hcm-thumb-${product.assetSeries}-${file}` })) : [];
+  const productGallery = (product) => product.assetSeries ? galleryFiles.map(file => ({
+    file,
+    url: `${glossyOriginalBase}/${product.assetSeries}/${file}`,
+    thumb: `${glossyThumbnailBase}/${product.assetSeries}/${file}`
+  })) : [];
 
   function card(product, index) {
     const hasImage = Boolean(product.image);
