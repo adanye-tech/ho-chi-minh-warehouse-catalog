@@ -1,12 +1,5 @@
 (() => {
   const products = Array.isArray(window.PRODUCTS) ? window.PRODUCTS : [];
-  const glossyOriginalBase = 'https://adanye-tech.github.io/tile-product-catalog/assets/order-system-products';
-  const glossyThumbnailBase = 'https://adanye-tech.github.io/tile-product-catalog/assets/card-thumbs/order-system-products';
-  products.forEach(product => {
-    if (!product.assetSeries) return;
-    product.image = `${glossyOriginalBase}/${product.assetSeries}/main.jpg`;
-    product.thumbnail = `${glossyThumbnailBase}/${product.assetSeries}/main.jpg`;
-  });
   const grid = document.querySelector('#productGrid');
   const search = document.querySelector('#searchInput');
   const status = document.querySelector('#statusFilter');
