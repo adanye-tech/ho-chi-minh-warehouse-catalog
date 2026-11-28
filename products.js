@@ -669,7 +669,7 @@ window.PRODUCTS = [
     "assetSeries": "H01",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H01.jpg",
-    "thumbnail": "hcm-thumb-H01-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H01.jpg",
     "missing": false
   },
   {
@@ -682,7 +682,7 @@ window.PRODUCTS = [
     "assetSeries": "H02",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H02.jpg",
-    "thumbnail": "hcm-thumb-H02-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H02.jpg",
     "missing": false
   },
   {
@@ -695,7 +695,7 @@ window.PRODUCTS = [
     "assetSeries": "H03",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H03.jpg",
-    "thumbnail": "hcm-thumb-H03-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H03.jpg",
     "missing": false
   },
   {
@@ -708,7 +708,7 @@ window.PRODUCTS = [
     "assetSeries": "H05",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H05.jpg",
-    "thumbnail": "hcm-thumb-H05-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H05.jpg",
     "missing": false
   },
   {
@@ -721,7 +721,7 @@ window.PRODUCTS = [
     "assetSeries": "H06",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H06.jpg",
-    "thumbnail": "hcm-thumb-H06-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H06.jpg",
     "missing": false
   },
   {
@@ -734,7 +734,7 @@ window.PRODUCTS = [
     "assetSeries": "H07",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H07.jpg",
-    "thumbnail": "hcm-thumb-H07-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H07.jpg",
     "missing": false
   },
   {
@@ -747,7 +747,7 @@ window.PRODUCTS = [
     "assetSeries": "H08",
     "category": "glossy-600",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H08.jpg",
-    "thumbnail": "hcm-thumb-H08-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/600x1200/612H08.jpg",
     "missing": false
   },
   {
@@ -760,7 +760,7 @@ window.PRODUCTS = [
     "assetSeries": "H02",
     "category": "glossy-800",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H02.jpg",
-    "thumbnail": "hcm-thumb-H02-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H02.jpg",
     "missing": false
   },
   {
@@ -773,7 +773,7 @@ window.PRODUCTS = [
     "assetSeries": "H03",
     "category": "glossy-800",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H03.jpg",
-    "thumbnail": "hcm-thumb-H03-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H03.jpg",
     "missing": false
   },
   {
@@ -786,7 +786,7 @@ window.PRODUCTS = [
     "assetSeries": "H05",
     "category": "glossy-800",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H05.jpg",
-    "thumbnail": "hcm-thumb-H05-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H05.jpg",
     "missing": false
   },
   {
@@ -799,7 +799,7 @@ window.PRODUCTS = [
     "assetSeries": "H06",
     "category": "glossy-800",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H06.jpg",
-    "thumbnail": "hcm-thumb-H06-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H06.jpg",
     "missing": false
   },
   {
@@ -812,7 +812,7 @@ window.PRODUCTS = [
     "assetSeries": "H07",
     "category": "glossy-800",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H07.jpg",
-    "thumbnail": "hcm-thumb-H07-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H07.jpg",
     "missing": false
   },
   {
@@ -825,7 +825,7 @@ window.PRODUCTS = [
     "assetSeries": "H08",
     "category": "glossy-800",
     "image": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H08.jpg",
-    "thumbnail": "hcm-thumb-H08-main.jpg",
+    "thumbnail": "https://adanye-tech.github.io/tile-product-catalog/assets/ho-chi-minh-warehouse-pdf/wood-grain/800x800/88H08.jpg",
     "missing": false
   }
 ];
